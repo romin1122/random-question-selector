@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+
+    <title>Random Questions</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #d0f4de;
+            font-family: 'Open Sans', sans-serif;
+            color: #303030;
+        }
+
+        #content {
+            background-color: #fcf6bd;
+            font-size: 1.3em;
+            width: 350px;
+            min-height: 350px;
+            padding:4em;
+            border-radius: 5%;
+        }
+
+        #ranges > input {
+            font-size: 1em;
+            width: 7em;
+        }
+
+        #outputList {
+            list-style-type: none;
+        }
+
+        #output>li {
+            background-color: #fe6d73;
+            color: rgb(252, 252, 252);
+            font-weight: bold;
+            padding: .4em;
+            border-radius: 2%;
+            margin-bottom: .4em;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="content">
+        <div id="ranges">
+            Ranges: 
+            <input type="text" name="" id="">
+            <button><img src="./done.svg" alt=""></button>
+        </div>
+        <div id="outputDiv">
+            <ol id="output">
+
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let get30percent = (num) => {
+            let needed = Math.ceil( num * 0.3 );
+            let nums = [];
+            while (true) {
+                if (nums.length == needed) break;
+
+                let rand = Math.floor(Math.random() * num + 1);
+                if (nums.indexOf(rand) === -1) nums.push(rand);
+            }
+            return nums.sort(function(a, b){return a - b});
+        }
+
+        let randsArray = (ranges) => {
+            let allRands = [];
+            for (let i = 0; i < ranges.length; i++) {
+                allRands.push(get30percent(ranges[i]));
+            }
+            return allRands;
+        }
+
+        document.querySelector("#ranges>input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.querySelector("#ranges>button").click();
+            }
+        });
+        
+        
+        document.querySelector("#ranges>button").onclick = () => {
+            let outputList = document.querySelector("#output");
+            let inputRanges = document.querySelector("#ranges>input").value
+                .match(/\d+/g)
+                .map(function(item) {
+                return parseInt(item);
+            });
+            outputList.innerHTML = "";
+
+            let allRands = randsArray(inputRanges);
+            for (let i = 0; i < allRands.length; i++) {
+                let li = document.createElement('li');
+                li.innerText = allRands[i].join(', ');
+                outputList.appendChild(li);
+            }
+        }
+
+    </script>
+</body>
+</html>
