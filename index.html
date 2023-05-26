@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/gh/nastyox/Rando.js@master/code/plain-javascript/2.0.0/rando-min.js"></script>
 
     <title>Random Questions</title>
 
@@ -74,7 +75,9 @@
             while (true) {
                 if (nums.length == needed) break;
 
-                let rand = Math.floor(Math.random() * num + 1);
+                //let rand = Math.floor(Math.random() * num + 1);
+                let rand = rando(1, num);
+
                 if (nums.indexOf(rand) === -1) nums.push(rand);
             }
             return nums.sort(function(a, b){return a - b});
