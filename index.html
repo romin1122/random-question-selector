@@ -34,9 +34,13 @@
             border-radius: 5%;
         }
 
-        #ranges > input {
+        #ranges > #textbox {
             font-size: 1em;
             width: 7em;
+        }
+
+        #ranges > #randomizeList {
+            transform: scale(2);
         }
 
         #outputList {
@@ -58,8 +62,9 @@
     <div id="content">
         <div id="ranges">
             Ranges: 
-            <input type="text" name="" id="">
+            <input type="text" name="" id="textbox">
             <button><img src="./done.svg" alt=""></button>
+            <input type="checkbox" name="" id="randomizeList">
         </div>
         <div id="outputDiv">
             <ol id="output">
@@ -80,6 +85,10 @@
 
                 if (nums.indexOf(rand) === -1) nums.push(rand);
             }
+
+            // added sorted or randomized list option
+            let randomizeList = document.querySelector("#randomizeList");
+            if (randomizeList.checked) return nums;
             return nums.sort(function(a, b){return a - b});
         }
 
